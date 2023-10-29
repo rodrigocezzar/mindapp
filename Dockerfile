@@ -8,7 +8,7 @@ RUN apt-get update -qq && \
     rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man && \
     npm install -g yarn
 
-WORKDIR /app
-ADD . /app
+WORKDIR /importer
+ADD . /importer
 RUN gem install bundler
 RUN bundle install
