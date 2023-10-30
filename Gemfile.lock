@@ -181,6 +181,7 @@ GEM
     rake (13.1.0)
     rdoc (6.5.0)
       psych (>= 4.0.0)
+    redcarpet (3.6.0)
     regexp_parser (2.8.2)
     reline (0.3.9)
       io-console (~> 0.5)
@@ -266,6 +267,7 @@ DEPENDENCIES
   pg (~> 1.1)
   puma (~> 5.0)
   rails (~> 7.0.5)
+  redcarpet
   rspec-rails
   rubocop
   shoulda-matchers (~> 5.0)
