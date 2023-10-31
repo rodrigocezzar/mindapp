@@ -1,0 +1,39 @@
+name: deploy-app
+
+on:
+   push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    services:
+      postgres:
+        image: postgres:11
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: test_database
+        ports:
+        - 5432:5432
+
+    steps:
+    - uses: actions/checkout@v2
+
+    - name: Set up Ruby
+      uses: ruby/setup-ruby@v1
+      with:
+        ruby-version: 3.2.2
+
+    - name: Build and test with RSPEC
+      env:
+        RAILS_ENV: test
+        DATABASE_URL: postgres://postgres:postgres@localhost:5432/test_database
+      run: |
+        gem install bundler
+        bundle install --jobs 4 --retry 3
+        bundle exec rake db:create
+        bundle exec rake db:migrate
+        bundle exec rspec
